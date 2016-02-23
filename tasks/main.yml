@@ -20,4 +20,4 @@
 - include: service.yml
 
 - name: Start the pcap-replay service
-  service: name=pcap-replay state=started
+  service: name=pcap-replay state=restarted
