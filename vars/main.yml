@@ -15,5 +15,6 @@
 #  limitations under the License.
 #
 ---
+pcap_path: /opt/pcap-replay
 tcpreplay_version: 4.1.1
-pcap_replay_path: /opt/pcap-replay
+tcpreplay_prefix: /opt

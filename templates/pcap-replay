@@ -22,14 +22,14 @@
 # processname: pcap-replay
 #
 
-DAEMON_PATH="/opt/pcap-replay"
+DAEMON_PATH="{{ pcap_path }}"
 PCAPIN=`ls $DAEMON_PATH/*.pcap 2> /dev/null`
-IFACE={{ pcap_replay_interface }}
-DAEMON=/usr/local/bin/tcpreplay
-DAEMONOPTS="--intf1=$IFACE --loop=0 $PCAPIN"
+IFACE="{{ pcap_replay_interface }}"
+DAEMON="{{ tcpreplay_prefix }}/bin/tcpreplay"
+DAEMONOPTS="--intf1=$IFACE --loop=0 $1 $PCAPIN"
 
 NAME=pcap-replay
-DESC="Replays packet capture data stored in libpcap format"
+DESC="Replay packet capture data"
 PIDFILE=/var/run/$NAME.pid
 SCRIPTNAME=/etc/init.d/$NAME
 
@@ -39,7 +39,7 @@ case "$1" in
 
     # ensure that a pcap file exists to replay
     if [ -z "$PCAPIN" ]; then
-      printf "%s: %s\n" "Fail: No pcap files found" $DAEMON_PATH
+      printf "%s: %s\n" "Fail: No pcap files found at " $DAEMON_PATH
     else
       # kick-off the daemon
       cd $DAEMON_PATH
